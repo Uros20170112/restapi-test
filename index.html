@@ -74,12 +74,15 @@
         <!-- Div sekcija za PUT formu za kategorije -->
 
         <div id="kategorije_put">
+            <input type="text" name="id_kategorije" id="id_kategorije">
+
             <input type="text" name="kategorija_naziv_put" id="kategorija_naziv_put" placeholder="Unesite novi naziv kategorije">
         </div>
 
         <!-- Div sekcija za PUT formu za novosti -->
 
         <div id="novosti_put">
+            <input type="text" name="id_novosti" id="id_novosti">
             <input type="text" name="naslov_novosti_put" placeholder="Unesite novi naslov novosti">
             <br>
             <textarea name="tekst_novosti_put" id="tekst_novosti_put" cols="30" rows="10" placeholder="Unesite novi tekst novosti"></textarea>
@@ -124,7 +127,8 @@
     };
     //pozivamo funkciju da se izvrši
     skloniBlokove();
-    
+
+
     //definišemo event handler-e za svaki klik na formi
     //gde klikom na neki radio button za HTTP zahtev i određenu tabelu, želimo da se prikaže DIV element za tu kombinaciju
     //kombinacija je definisana u okviru prikaziBlok funkcije
@@ -255,7 +259,7 @@
                 // kada je post zahtev u pitanju, potrebno je da 
                 // prikupimo podatke koje hoćemo da pošaljemo iz forme
                         var values = {
-                            "naslov":$("input[name=naslov_novosti]").val(),
+                            "naslov": $("input[name=naslov_novosti]").val(),
                             "tekst":$("#tekst_novosti").val(),
                             "kategorija_id": parseInt($("#kategorija_odabir").val())
                         };
@@ -282,7 +286,7 @@
                         
                     }
                     break;
-                case "put":
+                    case "put":
                     //kod za bonus poene
                     if(tabela=="radio_novosti"){
                         var values = {
@@ -292,7 +296,7 @@
                         };
                         console.log(values);
                         $.ajax({
-                            url: "http://localhost/rest/api/novosti/6",
+                            url: "http://localhost/rest/api/novosti/"+$("#id_novosti").val(),
                             type: "PUT",
                             data: JSON.stringify(values),
                             success: function(data){
@@ -305,7 +309,7 @@
                         }
                         console.log(values);
                         $.ajax({
-                            url: 'http://localhost/rest/api/kategorije/5',
+                            url: 'http://localhost/rest/api/kategorije/'+$("#id_kategorije").val(),
                             type: "PUT",
                             data: JSON.stringify(values),
                             success: function(data){
