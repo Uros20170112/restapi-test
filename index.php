@@ -11,6 +11,10 @@
   crossorigin="anonymous"></script>
 
 </head>
+<?php
+include "Database.php";
+$mydb = new Database("rest");
+?>
 <body>
     <h1>Forma za manipulaciju sa API-em</h1>
 
@@ -52,10 +56,12 @@
 
             <label for="kategorija_odabir">Kategorija:</label>
             <select name="kategorija_odabir" id="kategorija_odabir">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+                <?php
+                    $mydb->select("kategorije", "*", null, null, null);
+                    while($red = $mydb->getResults()->fetch_object()):
+                ?>
+                <option value="<?php echo $red->id?>"><?php echo $red->kategorija?></option>
+                <?php endwhile?>
             </select>
         </div>
 
