@@ -12,14 +12,13 @@
 
 </head>
 <?php
-include "Database.php";
-$mydb = new Database("rest");
+include "obrada.php";
 ?>
 <body>
     <h1>Forma za manipulaciju sa API-em</h1>
 
     <!-- Radio button grupa za odabir tipa tabele iz baze koji želimo da menjamo -->
-    <form action="">
+    <form action="" method="post">
         <div id="odabir_tabele">
             <input type="radio" name="odabir_tabele" id="radio_kategorija" value="kategorija">
             <label for="radio_kategorija">kategorija</label>
@@ -58,10 +57,10 @@ $mydb = new Database("rest");
             <select name="kategorija_odabir" id="kategorija_odabir">
                 <?php
                     $mydb->select("kategorije", "*", null, null, null);
-                    while($red = $mydb->getResults()->fetch_object()):
+                    while($red = $mydb->getResult()->fetch_object()):
                 ?>
-                <option value="<?php echo $red->id?>"><?php echo $red->kategorija?></option>
-                <?php endwhile?>
+                <option value="<?php echo $red->id?>"><?php echo $red->kategorija ?></option>
+                    <?php endwhile;?>
             </select>
         </div>
 
@@ -96,10 +95,12 @@ $mydb = new Database("rest");
 
             <label for="kategorija_odabir_put">Odaberite novu kategoriju:</label>
             <select name="kategorija_odabir_put" id="kategorija_odabir_put">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+            <?php
+                    $mydb->select("kategorije", "*", null, null, null);
+                    while($red = $mydb->getResult()->fetch_object()):
+                ?>
+                <option value="<?php echo $red->id?>"><?php echo $red->kategorija ?></option>
+                    <?php endwhile;?>
             </select>
             
         </div>
@@ -112,7 +113,7 @@ $mydb = new Database("rest");
 
         </div>
         <div id="submit">
-            <button type="button">Posalji zahtev</button>
+            <input type="submit" name="posalji" id="posalji" value = "Posalji zahtev">
         </div>
     </form>
     

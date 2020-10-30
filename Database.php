@@ -5,7 +5,7 @@ class Database{
     private $password = "";
     private $dbname;
     private $dblink;
-    private $results;
+    private $result;
     private $affected;
     private $records;
 
@@ -23,18 +23,18 @@ class Database{
         $this->dblink->set_charset("utf8");
     }
     function ExecuteQuery($query){
-        if($this->results = $this->dblink->query($query)){
-            if(isset($this->results->num_rows)){
-                $this->records = $this->results->num_rows;
+        if($this->result = $this->dblink->query($query)){
+            if(isset($this->result->num_rows)){
+                $this->records = $this->result->num_rows;
             }
-            if(isset($this->results->affected_rows)){
-                $this->records = $this->results->affected_rows;
+            if(isset($this->result->affected_rows)){
+                $this->records = $this->result->affected_rows;
             }
         }
     }
 
-    function getResults() {
-        return $this->results;
+    function getResult() {
+        return $this->result;
     }
 
     function select($table="novosti", $rows="*", $join_table="kategorije", $join_key1="kategorija_id", $where=null, $order=null){
