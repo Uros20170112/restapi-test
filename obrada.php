@@ -37,9 +37,7 @@
         }
         elseif($_POST["odabir_tabele"]!=null && $_POST["http_zahtev"]!=null){
             if($_POST["http_zahtev"]=='get') {
-                $result = mysqli_query($dbl, $mydb->select())or die("Ubi se");
-                print_r($result);
-                $_POST = array();
+                $mydb->select();
             }
         }
     }
