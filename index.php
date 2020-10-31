@@ -20,7 +20,7 @@ include "obrada.php";
     <!-- Radio button grupa za odabir tipa tabele iz baze koji želimo da menjamo -->
     <form action="" method="post">
         <div id="odabir_tabele">
-            <input type="radio" name="odabir_tabele" id="radio_kategorija" value="kategorija">
+            <input type="radio" name="odabir_tabele" id="radio_kategorija" value="kategorije">
             <label for="radio_kategorija">kategorija</label>
             <input type="radio" name="odabir_tabele" id="radio_novosti" value="novosti">
             <label for="radio_novosti">novosti</label>

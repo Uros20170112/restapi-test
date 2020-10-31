@@ -9,8 +9,8 @@ class Database{
     private $affected;
     private $records;
 
-    function __construct($dbname){
-        $this->dbname = $dbname;
+    function __construct($par_dbname){
+        $this->dbname = $par_dbname;
         $this->Connect();
     }
 
@@ -37,10 +37,13 @@ class Database{
         return $this->result;
     }
 
-    function select($table="novosti", $rows="*", $join_table="kategorije", $join_key1="kategorija_id", $where=null, $order=null){
-        $q = "SELECT ".$rows."FROM ".$table;
+    function select($table="novosti",$rows="*",$join_table="kategorije",$join_key1="kategorija_id",$join_key2="id", $where =null, $order=null){
+        $q = "SELECT ".$rows." FROM ".$table;
+        //SELECT * FROM kategorije JOIN novosti ON novosti.kategorija_id = kategorije.id
         if($join_table != null) {
-            $q.=" JOIN ".$join_table." ON ".$table.".".$join_key1." = ".$join_key2;
+            $q.=' JOIN '.$join_table.' ON '.$table.'.'.$join_key1.'='.$join_table.'.'.$join_key2;
+            //SELECT * FROM novosti JOIN kategorije ON novosti.kategorija_id = kategorije.id
+            echo $q;
         }
         if($where!=null) {
             $q.=" WHERE ".$where;
@@ -48,7 +51,7 @@ class Database{
         if($order!=null) {
             $q.=" ORDER BY ".$order;
         }
-        $this->ExecuteQuery($q);
+        $this->ExecuteQuery($q)->getResult;
     }
 
     function insert($table="novosti", $rows="naslov, tekst, kategorija_id, datumvreme", $values){
@@ -65,11 +68,12 @@ class Database{
         }
     }
     
-    function update($table, $id, $keys,$values){
+    function update($table, $id, $keys, $values){
         $query_values ="";
         $set_query = array();
+        //echo $values[0];
         for($i =0; $i<sizeof($keys); $i++){
-            $set_query[] = "$keys[$i] = $values[$i]";
+           $set_query[$i] = "$keys[$i] = $values[$i]";
         }
         $query_values = implode(",", $set_query);  
         $q = "UPDATE $table SET $query_values WHERE id=$id";
@@ -81,8 +85,7 @@ class Database{
     }
 
     function delete($table, $id, $id_value){
-        $q = "DELETE FROM $table WHERE $table.$id=$id_value";
-        // echo $q;
+        $q = "DELETE FROM $table WHERE $id=$id_value";
         if($this->ExecuteQuery($q)){
             return true;
         }else{
