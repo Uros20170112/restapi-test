@@ -37,7 +37,49 @@
         }
         elseif($_POST["odabir_tabele"]!=null && $_POST["http_zahtev"]!=null){
             if($_POST["http_zahtev"]=='get') {
+                $list = $mydb->select();
                 $mydb->select();
+                while($red = $mydb->getResult()->fetch_object()){
+                   // echo $red;
+                   echo "{ ".$red->id;
+                   echo '<br>';
+                   echo $red->naslov;
+                   echo '<br>';
+                   echo $red->tekst;
+                   echo '<br>';
+                   echo $red->datumvreme;
+                   echo '<br>';
+                   echo $red->kategorija_id;
+                   echo ' }<br>';
+                   echo '<br>';
+                   echo '<br>';
+                    //print_r($red);
+                }
+        //         $record=mysqli_query($dblink,$q);
+        // $list = array();
+        // while($row=mysqli_fetch_assoc($record)){
+        // //fill array how to fill array that will look like bellow from database???
+        //     $list[] = $row;
+        //    // print_r($row);
+        // }
+        // return $list;
+        //         for($i=0; $i<sizeof($list); $i++){
+        //           //  print_r($list[$i]);
+        //             echo "{".$list[$i]['id'];
+        //             echo '<br>';
+        //             echo $list[$i]['naslov'];
+        //             echo '<br>';
+        //             echo $list[$i]['tekst'];
+        //             echo '<br>';
+        //             echo $list[$i]['datumvreme'];
+        //             echo '<br>';
+        //             echo $list[$i]['kategorija_id'];
+        //             echo '<br>';
+        //             echo $list[$i]['kategorija'];
+        //             echo '}<br>';
+        //             echo '<br>';
+        //             echo '<br>';
+        //         }
             }
         }
     }

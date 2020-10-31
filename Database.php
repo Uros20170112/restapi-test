@@ -43,7 +43,7 @@ class Database{
         if($join_table != null) {
             $q.=' JOIN '.$join_table.' ON '.$table.'.'.$join_key1.'='.$join_table.'.'.$join_key2;
             //SELECT * FROM novosti JOIN kategorije ON novosti.kategorija_id = kategorije.id
-            echo $q;
+            // echo $q;
         }
         if($where!=null) {
             $q.=" WHERE ".$where;
@@ -51,7 +51,8 @@ class Database{
         if($order!=null) {
             $q.=" ORDER BY ".$order;
         }
-        $this->ExecuteQuery($q)->getResult;
+        $this->ExecuteQuery($q);
+        
     }
 
     function insert($table="novosti", $rows="naslov, tekst, kategorija_id, datumvreme", $values){
