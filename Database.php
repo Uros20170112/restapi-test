@@ -64,5 +64,30 @@ class Database{
             return false;
         }
     }
+    
+    function update($table, $id, $keys,$values){
+        $query_values ="";
+        $set_query = array();
+        for($i =0; $i<sizeof($keys); $i++){
+            $set_query[] = "$keys[$i] = $values[$i]";
+        }
+        $query_values = implode(",", $set_query);  
+        $q = "UPDATE $table SET $query_values WHERE id=$id";
+        if($this->ExecuteQuery($q) && $this->affected>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function delete($table, $id, $id_value){
+        $q = "DELETE FROM $table WHERE $table.$id=$id_value";
+        // echo $q;
+        if($this->ExecuteQuery($q)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 ?>
